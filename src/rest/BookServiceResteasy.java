@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 public class BookServiceResteasy {
 
     @GET
-    @Path("/get")
+    @Path("/books/{id}")
     @Produces("application/json")
     public Book getBookInJSON() {
 
@@ -26,7 +26,7 @@ public class BookServiceResteasy {
     }
 
     @POST
-    @Path("/create")
+    @Path("/books")
     @Consumes("application/json")
     public Response createBookInJSON(Book book) {
 

@@ -16,8 +16,9 @@ public class BookClientResteasy {
     public static void main(String[] args) {
 
         try {
+            int bookId = 1;
             ClientRequest request = new ClientRequest(
-                    "http://localhost:8080/rest/get");
+                    "http://localhost:8080/rest/books/" + bookId);
             request.accept("application/json");
             ClientResponse<String> response = request.get(String.class);
 
