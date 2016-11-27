@@ -14,25 +14,41 @@ import java.io.IOException;
 public class BookClientResteasy {
 
     public static void main(String[] args) {
-
+        Gson gson = new Gson();
         try {
             int bookId = 1;
-            ClientRequest request = new ClientRequest(
+            ClientRequest getBookRequest = new ClientRequest(
                     "http://localhost:8080/rest/books/" + bookId);
-            request.accept("application/json");
-            ClientResponse<String> response = request.get(String.class);
+            getBookRequest.accept("application/json");
+            ClientResponse<String> getBookResponse = getBookRequest.get(String.class);
 
-            if (response.getStatus() != 200) {
+            if (getBookResponse.getStatus() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
+                        + getBookResponse.getStatus());
             }
-
-            Gson gson = new Gson();
-            Book book = gson.fromJson(response.getEntity(), Book.class);
-
+            Book book = gson.fromJson(getBookResponse.getEntity(), Book.class);
             System.out.println("Output from Server .... \n");
 
             System.out.println(book.toString());
+//***************************************************************************************************
+            Book newBook = new Book();
+            newBook.setAuthor("Tomson");
+            newBook.setTitle("Fly");
+            newBook.setId(2);
+
+
+            ClientRequest postBookRequest = new ClientRequest(
+                    "http://localhost:8080/rest/books/");
+            postBookRequest.accept("application/json");
+            String gsonBook = gson.toJson(newBook);
+
+            postBookRequest.body("application/json", gsonBook);
+
+            ClientResponse<String> postBookResponse = postBookRequest.post(String.class);
+
+            System.out.println("Output from Server .... \n");
+
+            System.out.println(postBookResponse.getStatus());
 
 
         } catch (ClientProtocolException e) {
