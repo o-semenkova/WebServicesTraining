@@ -50,7 +50,6 @@ public class BookClientResteasy {
 
             System.out.println(postBookResponse.getStatus());
 
-
         } catch (ClientProtocolException e) {
 
             e.printStackTrace();
@@ -62,8 +61,6 @@ public class BookClientResteasy {
         } catch (Exception e) {
 
             e.printStackTrace();
-
         }
-
     }
 }
